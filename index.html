@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сигналы для Aviator</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b, #1c92d2, #fcb045);
+            background-size: 300% 300%;
+            animation: gradientBG 10s infinite alternate;
+            font-family: Arial, sans-serif;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .button {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #555;
+        }
+        #signals {
+            margin-top: 20px;
+            font-size: 22px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://t.me/your_username" class="button" target="_blank">Написать в Telegram</a>
+    <a href="https://your-referral-link.com" class="button" target="_blank">Перейти по реферальной ссылке</a>
+    <button class="button" onclick="generateSignals()">Показать сигналы</button>
+    <div id="signals"></div>
+
+    <script>
+        function generateSignals() {
+            let signals = [];
+            for (let i = 0; i < Math.floor(Math.random() * (7 - 5 + 1)) + 5; i++) {
+                signals.push((Math.random() * (2 - 1.1) + 1.1).toFixed(2));
+            }
+            signals.push((Math.random() * (300 - 5) + 5).toFixed(2));
+            document.getElementById('signals').innerText = signals.join(' | ');
+        }
+    </script>
+</body>
+</html>
