@@ -1,94 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сигналы для Aviator</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: black;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/2/28/Starsinthesky.jpg') repeat;
-            animation: moveStars 50s linear infinite;
-        }
-        @keyframes moveStars {
-            from { background-position: 0 0; }
-            to { background-position: -1000px 1000px; }
-        }
-        .button {
-            display: block;
-            width: 80%;
-            max-width: 300px;
-            padding: 20px;
-            margin: 15px;
-            text-align: center;
-            font-size: 20px;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .button:nth-child(1) { background-color: #007bff; }
-        .button:nth-child(2) { background-color: #28a745; }
-        .button:nth-child(3) { background-color: #dc3545; }
-        .button:hover { opacity: 0.8; }
-        #signals {
-            margin-top: 20px;
-            font-size: 24px;
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .rocket {
-            position: absolute;
-            width: 50px;
-            bottom: -60px;
-            animation: fly 10s linear infinite;
-        }
-        @keyframes fly {
-            from { left: 50%; bottom: -60px; }
-            to { left: 50%; bottom: 110%; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pixel Rocket Landing</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+      touch-action: none;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-radial-gradient(circle, white 1px, transparent 2px);
+      background-size: 4px 4px;
+      animation: twinkle 2s infinite linear;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .rocket {
+      position: absolute;
+      width: 10vw;
+      max-width: 80px;
+      height: auto;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      image-rendering: pixelated;
+    }
+
+    .chemtrail {
+      position: absolute;
+      width: 10px;
+      height: 120px;
+      background: linear-gradient(to bottom, rgba(255,200,100,0.9), rgba(255,140,0,0));
+      border-radius: 2px;
+      z-index: 1;
+      opacity: 0;
+      animation: chemtrail-fade 2s ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes chemtrail-fade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <a href="https://t.me/your_username" class="button" target="_blank">Написать в Telegram</a>
-    <a href="https://your-referral-link.com" class="button" target="_blank">Перейти по реферальной ссылке</a>
-    <button class="button" onclick="getSignal()">Получить сигнал</button>
-    <div id="signals"></div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/SpaceX_Falcon_9_icon.svg" class="rocket" alt="Ракета">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAYACAIAAABn4K39AAEAAElEQVR4nLT9Ta9ua7YcCEWMZ659PjKPr/Om7bQxlgyqkko0kH8B" class="rocket" id="rocket" alt="rocket">
 
-    <script>
-        let lastSignalTime = 0;
-        let lastSignal = "";
+  <script>
+    const rocket = document.getElementById('rocket');
+    const screenHeight = document.documentElement.clientHeight;
+    let posY = screenHeight;
 
-        function getSignal() {
-            let now = Date.now();
-            if (now - lastSignalTime < 13000) {
-                document.getElementById('signals').innerText = "Подождите 13 секунд перед следующим сигналом!";
-                return;
-            }
-            lastSignalTime = now;
-            lastSignal = (Math.random() * (2 - 1.1) + 1.1).toFixed(2);
-            document.getElementById('signals').innerText = "Сигнал: " + lastSignal;
-        }
-    </script>
+    function animateRocket() {
+      posY -= 1;
+      rocket.style.top = posY + 'px';
+
+      if (posY > -100) {
+        requestAnimationFrame(animateRocket);
+      } else {
+        posY = screenHeight;
+        rocket.style.top = posY + 'px';
+        setTimeout(() => requestAnimationFrame(animateRocket), 1000);
+      }
+    }
+
+    function showChemtrail() {
+      const rect = rocket.getBoundingClientRect();
+      const trail = document.createElement('div');
+      trail.className = 'chemtrail';
+      trail.style.left = rect.left + rect.width / 2 + 'px';
+      trail.style.top = rect.top + rect.height + 'px';
+      document.body.appendChild(trail);
+
+      setTimeout(() => trail.remove(), 2000);
+    }
+
+    setInterval(showChemtrail, 10000);
+    requestAnimationFrame(animateRocket);
+  </script>
 </body>
 </html>
