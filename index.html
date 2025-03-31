@@ -1,13 +1,153 @@
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="si">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лендинг с кнопками</title>
+  <title>Rocket Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom, #060b1a, #000000);
+      color: white;
+      text-align: center;
+    }
+    .button {
+      background: linear-gradient(45deg, #d4145a, #fbb03b);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255, 0, 100, 0.6);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button-green {
+      background: linear-gradient(45deg, #0f0, #0c0);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+      animation: pulse 1.5s infinite;
+      color: black;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #0f0; }
+      50% { box-shadow: 0 0 30px #0f0; }
+      100% { box-shadow: 0 0 10px #0f0; }
+    }
+    .section {
+      padding: 30px 20px;
+    }
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #444;
+    }
+    .comment {
+      background: #111c2b;
+      margin: 10px auto;
+      padding: 15px;
+      border-radius: 15px;
+      max-width: 700px;
+      display: flex;
+      align-items: center;
+    }
+    .comment img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    .comment-info span:first-child {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    #signal-display {
+      font-size: 1.5em;
+      color: #00ffcc;
+      margin-top: 20px;
+    }
+    #id-form {
+      margin-top: 20px;
+      display: none;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: none;
+      margin-top: 10px;
+    }
+    #id-warning {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: #ff0;
+    }
+  </style>
 </head>
 <body>
-  <!-- Основной HTML код будет вставлен вручную позже -->
+  <div class="section">
+    <h1>ඔබගේ වාරය තවම නැවතීලා නෑ. අදහස් වීමට තවත් තත්පර කිහිපයකි!</h1>
+    <a class="button" href="https://t.me/viratcashbot" target="_blank">✉️ විරාත්ට ලියන්න</a>
+    <a class="button" href="https://affpa.top/L?tag=d_3712661m_97c_&site=3712661&ad=97&r=registration" target="_blank">🎮 ඇවියේටර් ක්‍රීඩාව</a>
+    <button class="button button-green" onclick="getSignal()">✅ සංඥා ලබාගන්න</button>
+    <div id="signal-display"></div>
+
+    <div id="id-form">
+      <p>ඔබගේ 1xbet වෙබ් අඩවියේ ID අංකය ඇතුළත් කරන්න!</p>
+      <input type="number" id="user-id" placeholder="ඔබේ ID ඇතුළත් කරන්න" />
+      <br>
+      <button class="button-green" onclick="submitID()">ID එක එක් කරන්න</button>
+      <div id="id-warning"></div>
+    </div>
+  </div>
+
+  <script>
+    let signalActive = false;
+    function getSignal() {
+      const display = document.getElementById('signal-display');
+      const form = document.getElementById('id-form');
+      if (signalActive) {
+        display.textContent = '🎯 ක්‍රීඩාව සිදුවෙමින් පවතී, කරුණාකර රැඳී සිටින්න...';
+        return;
+      }
+      signalActive = true;
+      const multiplier = (Math.random() * (150 - 1.1) + 1.1).toFixed(2);
+      display.textContent = `🚀 නව සංඥාවක් සූදානම්යි: ×${multiplier}`;
+      form.style.display = 'block';
+      setTimeout(() => {
+        signalActive = false;
+      }, 9000);
+    }
+
+    function submitID() {
+      const warning = document.getElementById('id-warning');
+      const id = document.getElementById('user-id').value;
+      if (!id) {
+        warning.textContent = 'කරුණාකර ඔබේ ID එක ඇතුළත් කරන්න';
+        return;
+      }
+      warning.textContent = 'ඔබගේ 1XBET ගිණුමේ ශේෂය 1400 LKR ට වඩා අඩුය. කරුණාකර ගිණුමට මුදල් එක් කරන්න.';
+      if (!document.getElementById('topup-button')) {
+        const topupBtn = document.createElement('a');
+        topupBtn.href = 'https://affpa.top/L?tag=d_3712661m_97c_&site=3712661&ad=97&r=registration';
+        topupBtn.textContent = 'මුදල් එක් කරන්න';
+        topupBtn.className = 'button-green';
+        topupBtn.style.display = 'inline-block';
+        topupBtn.style.marginTop = '10px';
+        topupBtn.id = 'topup-button';
+        warning.appendChild(document.createElement('br'));
+        warning.appendChild(topupBtn);
+      }
+    }
+  </script>
 </body>
 </html>
