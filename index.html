@@ -179,7 +179,18 @@
       }
 
       signalActive = true;
-      const multiplier = (Math.random() * (150 - 1.1) + 1.1).toFixed(2);
+
+      // Генерация коэффициента с учетом вероятностей
+      const rand = Math.random();
+      let multiplier;
+      if (rand < 0.6) {
+        multiplier = (Math.random() * (2.4 - 1) + 1).toFixed(2); // 60% [1–2.4]
+      } else if (rand < 0.8) {
+        multiplier = (Math.random() * (6 - 3) + 3).toFixed(2);   // 20% [3–6]
+      } else {
+        multiplier = (Math.random() * (98 - 10) + 10).toFixed(2); // 20% [10–98]
+      }
+
       display.textContent = `🚀 නව සංඥාවක් සූදානම්යි: ×${multiplier}`;
       idSection.style.display = 'block';
 
