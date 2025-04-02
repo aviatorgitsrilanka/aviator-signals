@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="si">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,13 +37,38 @@
       50% { box-shadow: 0 0 30px #0f0; }
       100% { box-shadow: 0 0 10px #0f0; }
     }
-    .section {
-      padding: 30px 20px;
-    }
+    .section { padding: 30px 20px; }
     #signal-display {
       font-size: 1.5em;
       color: #00ffcc;
       margin-top: 20px;
+    }
+    #id-input-section {
+      display: none;
+      margin-top: 20px;
+    }
+    #id-input-section input {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+      width: 200px;
+    }
+    #id-confirm-btn, #deposit-btn {
+      margin-top: 10px;
+      background-color: #00ff00;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #balance-warning {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #ff5050;
     }
     table {
       margin: 40px auto;
@@ -78,14 +102,23 @@
     }
   </style>
 </head>
-
 <body>
+
   <div class="section">
     <h1>ඔබගේ වාරය තවම නැවතීලා නෑ. අදහස් වීමට තවත් තත්පර කිහිපයකි!</h1>
     <a class="button" href="https://t.me/viratcash_bot" target="_blank">✉️ විරාත්ට ලියන්න</a>
     <a class="button" href="https://affpa.top/L?tag=d_3712661m_97c_&site=3712661&ad=97&r=registration" target="_blank">🎮 ඇවියේටර් ක්‍රීඩාව</a>
     <button class="button button-green" onclick="getSignal()">✅ සංඥා ලබාගන්න</button>
     <div id="signal-display"></div>
+  </div>
+
+  <div id="id-input-section" class="section">
+    <h2>ඔබගේ 1xBet අංකය ඇතුළත් කරන්න</h2>
+    <input type="number" id="user-id" placeholder="ඔබගේ 1xBet ID">
+    <br>
+    <button id="id-confirm-btn" onclick="handleIdSubmit()">ID එක එක් කරන්න</button>
+    <div id="balance-warning"></div>
+    <a id="deposit-btn" href="https://affpa.top/L?tag=d_3712661m_97c_&site=3712661&ad=97&r=registration" target="_blank" style="display:none">🤑 ගිණුමට මුදල් එක් කරන්න</a>
   </div>
 
   <div class="section">
@@ -104,47 +137,4 @@
       <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="avatar">
       <div class="comment-info">
         <span>Arjuna Fernando</span>
-        <span>ස්තුතියි විරාත්, මම බැංකුවේ ණය වැටුප් කරලා දැන් මට තවත් කරදරක් නෑ</span>
-      </div>
-    </div>
-    <div class="comment">
-      <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="avatar">
-      <div class="comment-info">
-        <span>Kavinda Raj</span>
-        <span>මම මුලින් විරාත්ට විශ්වාස නෑ කියලා හිතුවා. දැන් මම ඉතා ඉක්මනින් ලක්ෂ ගානක් ප්‍රමාණයකි!</span>
-      </div>
-    </div>
-    <div class="comment">
-      <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="avatar">
-      <div class="comment-info">
-        <span>Nadeesha Kumari</span>
-        <span>මම වර්තමානයේ නිදහසේ ජීවිතයක් ජීවත්වෙනවා, ස්තුතියි විරාත්ට!</span>
-      </div>
-    </div>
-    <div class="comment">
-      <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="avatar">
-      <div class="comment-info">
-        <span>Ravindu Senanayake</span>
-        <span>ඔයා හොයාගත්ත ජීවිත මගට වඩා මට ගැලපෙන්නෙ නැහැ. මම වෙනස් වෙන්න ගියාවි!</span>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let signalGiven = false;
-
-    function getSignal() {
-      const display = document.getElementById('signal-display');
-
-      if (!signalGiven) {
-        const multiplier = (Math.random() * (3 - 1) + 1).toFixed(2);
-        display.textContent = `🚀 නව සංඥාවක් සූදානම්යි: ×${multiplier}`;
-        signalGiven = true;
-      } else {
-        alert("සම්පුර්ණ සංඥා සඳහා, කරුණාකර <b>1xBet</b> වෙබ් අඩවියට ලියාපදිංචි වන්න!");
-      }
-    }
-  </script>
-</body>
-
-</html>
+        <span>ස්තුතියි විරාත්, මම බැංකුවේ ණය වැටුප් කරලා දැන් ම
