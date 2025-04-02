@@ -71,10 +71,10 @@
       color: #ff5050;
     }
     table {
-      margin: 40px auto;
+      margin: 0 auto;
       border-collapse: collapse;
       width: 80%;
-      color: #fff;
+      margin-bottom: 40px;
     }
     th, td {
       padding: 12px;
@@ -103,7 +103,6 @@
   </style>
 </head>
 <body>
-
   <div class="section">
     <h1>ඔබගේ වාරය තවම නැවතීලා නෑ. අදහස් වීමට තවත් තත්පර කිහිපයකි!</h1>
     <a class="button" href="https://t.me/viratcash_bot" target="_blank">✉️ විරාත්ට ලියන්න</a>
@@ -137,4 +136,59 @@
       <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="avatar">
       <div class="comment-info">
         <span>Arjuna Fernando</span>
-        <span>ස්තුතියි විරාත්, මම බැංකුවේ ණය වැටුප් කරලා දැන් ම
+        <span>ස්තුතියි විරාත්, මම බැංකුවේ ණය වැටුප් කරලා දැන් මට තවත් කරදරක් නෑ</span>
+      </div>
+    </div>
+    <div class="comment">
+      <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="avatar">
+      <div class="comment-info">
+        <span>Kavinda Raj</span>
+        <span>මම මුලින් විරාත්ට විශ්වාස නෑ කියලා හිතුවා. දැන් මම ඉතා ඉක්මනින් ලක්ෂ ගානක් ප්‍රමාණයකි!</span>
+      </div>
+    </div>
+    <div class="comment">
+      <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="avatar">
+      <div class="comment-info">
+        <span>Nadeesha Kumari</span>
+        <span>මම වර්තමානයේ නිදහසේ ජීවිතයක් ජීවත්වෙනවා, ස්තුතියි විරාත්ට!</span>
+      </div>
+    </div>
+    <div class="comment">
+      <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="avatar">
+      <div class="comment-info">
+        <span>Ravindu Senanayake</span>
+        <span>ඔයා හොයාගත්ත ජීවිත මගට වඩා මට ගැලපෙන්නෙ නැහැ. මම වෙනස් වෙන්න ගියාවි!</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let signalGiven = false;
+
+    function getSignal() {
+      const display = document.getElementById('signal-display');
+      const idSection = document.getElementById('id-input-section');
+
+      if (!signalGiven) {
+        const multiplier = (Math.random() * (3 - 1) + 1).toFixed(2);
+        display.textContent = `🚀 නව සංඥාවක් සූදානම්යි: ×${multiplier}`;
+        idSection.style.display = 'block';
+        signalGiven = true;
+      } else {
+        alert('සම්පුර්ණ සංඥා සඳහා, කරුණාකර \u003cb\u003e1xBet\u003c/b\u003e වෙබ් අඩවියට ලියාපදිංචි වන්න!');
+      }
+    }
+
+    function handleIdSubmit() {
+      const id = document.getElementById('user-id').value;
+      const warning = document.getElementById('balance-warning');
+      const depositBtn = document.getElementById('deposit-btn');
+
+      if (id.trim() !== '') {
+        warning.textContent = '📉 ඔබේ 1XBET ගිණුමේ ශේෂය 1400 LKRට අඩුයි. කරුණාකර ගිණුමට මුදල් එක් කරන්න!';
+        depositBtn.style.display = 'inline-block';
+      }
+    }
+  </script>
+</body>
+</html>
